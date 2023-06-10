@@ -13,6 +13,14 @@ public class TestItemTypes
         Assert.AreEqual(true, itemType.IsExactlyItemType(ItemType.NULL));
     }
 
+    [Test]
+    public void Test_ItemType_AfterInitializastion_Should_be_NotNull()
+    {
+        ItemType itemType = new ItemType();
+        itemType.AddType(ItemType.ROCK);
+        Assert.AreEqual(true, itemType.IsItemType(ItemType.NULL));
+    }
+
     // ---------- Tests SetType() ----------
     [Test]
     public void Test_ItemType_Set_Type_To_Ore_Expect_Type_Ore()
@@ -46,7 +54,7 @@ public class TestItemTypes
     {
         ItemType itemType = new ItemType();
         itemType.AddType(ItemType.ROCK);
-        Assert.AreEqual(true, itemType.IsExactlyItemType(ItemType.ROCK));
+        Assert.AreEqual(true, itemType.IsExactlyItemType(ItemType.ROCK | ItemType.NOT_NULL));
     }
 
     [Test]
@@ -91,7 +99,7 @@ public class TestItemTypes
         itemType.SetType(ItemType.ORE);
         itemType.AddType(ItemType.ROCK);
         itemType.RemoveType(ItemType.ROCK);
-        Assert.AreEqual(false, itemType.IsExactlyItemType(ItemType.ORE));
+        Assert.AreEqual(false, itemType.IsExactlyItemType(ItemType.ROCK | ItemType.NOT_NULL));
     }
     [Test]
     public void Test_ItemType_Set_Type_To_Ore_And_AddType_To_Rock_RemoveOre_Expect_Exactly_Rock()
@@ -100,6 +108,25 @@ public class TestItemTypes
         itemType.SetType(ItemType.ORE);
         itemType.AddType(ItemType.ROCK);
         itemType.RemoveType(ItemType.ORE);
-        Assert.AreEqual(false, itemType.IsExactlyItemType(ItemType.ROCK));
+        Assert.AreEqual(false, itemType.IsExactlyItemType(ItemType.ORE | ItemType.NOT_NULL));
+    }
+
+    [Test]
+    public void Test_ItemType_Set_Type_To_Ore_And_AddType_To_Rock_Remove_Rock_Expect_Not_Rock()
+    {
+        ItemType itemType = new ItemType();
+        itemType.SetType(ItemType.ORE);
+        itemType.AddType(ItemType.ROCK);
+        itemType.RemoveType(ItemType.ROCK);
+        Assert.AreEqual(false, itemType.IsItemType(ItemType.ROCK));
+    }
+    [Test]
+    public void Test_ItemType_Set_Type_To_Ore_And_AddType_To_Rock_RemoveOre_Expect_Not_Ore()
+    {
+        ItemType itemType = new ItemType();
+        itemType.SetType(ItemType.ORE);
+        itemType.AddType(ItemType.ROCK);
+        itemType.RemoveType(ItemType.ORE);
+        Assert.AreEqual(false, itemType.IsItemType(ItemType.ORE));
     }
 }
