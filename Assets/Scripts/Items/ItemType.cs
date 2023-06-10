@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemType
 {
     public static readonly int NULL = 0;
-    public static readonly int NOT_NULL = 1;
+    public static readonly int METAL = 1;
     public static readonly int ORE = 1 << 1;
     public static readonly int ROCK = 1 << 2;
 
@@ -31,7 +31,7 @@ public class ItemType
 
     public void AddType(int itemType)
     {
-        this.itemType = this.itemType | itemType | NOT_NULL;
+        this.itemType = this.itemType | itemType;
     }
     public void RemoveType(int itemType)
     {
