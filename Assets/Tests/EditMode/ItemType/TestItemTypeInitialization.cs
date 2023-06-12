@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameConstants;
 using NUnit.Framework;
 
 public class TestItemTypeInitialization
 {
     // A Test behaves as an ordinary method
     [Test]
-    public void Test_ItemType_Initialization_Should_Be_Type_Null()
+    public void Test_ItemType_Initialization_Should_Not_Be_Metal()
     {
-        ItemType itemType = new ItemType();
-        Assert.AreEqual(true, itemType.IsExactlyItemType(ItemType.NULL));
+        ItemId<ResourceType> itemType = new ItemId<ResourceType>();
+        Assert.AreEqual(false, itemType.IsItemType(ResourceType.Metal));
     }
 
     [Test]
-    public void Test_ItemType_AfterInitializastion_Should_be_NotNull()
+    public void Test_ItemType_Initializastion_Should_Not_Be_Herb()
     {
-        ItemType itemType = new ItemType();
-        itemType.AddType(ItemType.ROCK);
-        Assert.AreEqual(false, itemType.IsExactlyItemType(ItemType.NULL));
+        ItemId<ResourceType> itemType = new ItemId<ResourceType>();
+        Assert.AreEqual(false, itemType.IsItemType(ResourceType.Herb));
     }
 }
