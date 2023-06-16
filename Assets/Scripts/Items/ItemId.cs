@@ -12,6 +12,11 @@ public class ItemId<T>
         itemType = new List<T>();
     }
 
+    public ItemId(List<T> list)
+    {
+        itemType = list;
+    }
+
     public void SetType(T itemType)
     {
         if(this.itemType.Count > 0)

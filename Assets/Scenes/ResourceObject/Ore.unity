@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1684921866}
   - component: {fileID: 1684921865}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Coal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d350df6818437e4eaeb4331e2fb1c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfResources: 01000000
+  typeOfResources: 02000000
+  typeOfResource: 01000000
+  typeOfEquipment: 
 --- !u!65 &1684921866
 BoxCollider:
   m_ObjectHideFlags: 0
