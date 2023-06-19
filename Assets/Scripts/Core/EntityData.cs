@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using GameConstants;
 
 namespace Core
 {
@@ -15,46 +16,47 @@ namespace Core
         [SerializeField] private bool runSpeed;
 
         // Entity Data
-        private Dictionary<string, DataReference<int>> intReferences;
-        private Dictionary<string, DataReference<bool>> boolReferences;
-        private Dictionary<string, DataReference<float>> floatReferences;
+        private Dictionary<IntDataReference, DataReference<int>> intReferences;
+        private Dictionary<BoolDataReference, DataReference<bool>> boolReferences;
+        private Dictionary<FloatDataReference, DataReference<float>> floatReferences;
 
         // Events
-        private Dictionary<string, Action> entityActions;
+        private Dictionary<ActionReference, Action> entityActions;
 
         private void Awake()
         {
             // Initialize Dictionaries
-            intReferences = new Dictionary<string, DataReference<int>>();
-            boolReferences = new Dictionary<string, DataReference<bool>>();
-            floatReferences = new Dictionary<string, DataReference<float>>();
+            intReferences = new Dictionary<IntDataReference, DataReference<int>>();
+            boolReferences = new Dictionary<BoolDataReference, DataReference<bool>>();
+            floatReferences = new Dictionary<FloatDataReference, DataReference<float>>();
+            entityActions = new Dictionary<ActionReference, Action>();
 
             // Initialize References
-            if (health) intReferences.Add("health", new DataReference<int>());
-            if (maxHealth) intReferences.Add("maxHealth", new DataReference<int>());
-            if (walkSpeed) floatReferences.Add("walkSpeed", new DataReference<float>());
-            if (runSpeed) floatReferences.Add("runSpeed", new DataReference<float>());
+            if (health) intReferences.Add(IntDataReference.Health, new DataReference<int>());
+            if (maxHealth) intReferences.Add(IntDataReference.MaxHealth, new DataReference<int>());
+            if (walkSpeed) floatReferences.Add(FloatDataReference.WalkSpeed, new DataReference<float>());
+            if (runSpeed) floatReferences.Add(FloatDataReference.RunSpeed, new DataReference<float>());
         }
 
-        public DataReference<int> GetIntReference(string referenceName)
+        public DataReference<int> GetIntReference(IntDataReference referenceName)
         {
             DataReference<int> data;
             intReferences.TryGetValue(referenceName, out data);
             return data;
         }
-        public DataReference<bool> GetBoolReference(string referenceName)
+        public DataReference<bool> GetBoolReference(BoolDataReference referenceName)
         {
             DataReference<bool> data;
             boolReferences.TryGetValue(referenceName, out data);
             return data;
         }
-        public DataReference<float> GetFloatReference(string referenceName)
+        public DataReference<float> GetFloatReference(FloatDataReference referenceName)
         {
             DataReference<float> data;
             floatReferences.TryGetValue(referenceName, out data);
             return data;
         }
-        public Action GetActionReference(string referenceName)
+        public Action GetActionReference(ActionReference referenceName)
         {
             Action data;
             entityActions.TryGetValue(referenceName, out data);

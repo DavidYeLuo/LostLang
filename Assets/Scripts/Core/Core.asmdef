@@ -2,7 +2,8 @@
     "name": "Core",
     "rootNamespace": "",
     "references": [
-        "DataReference"
+        "DataReference",
+        "GameConstants"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
