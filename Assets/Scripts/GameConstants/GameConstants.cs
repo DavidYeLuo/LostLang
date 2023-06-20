@@ -38,8 +38,11 @@ namespace GameConstants
     public enum BoolDataReference {}
     public enum FloatDataReference
     {
-        WalkSpeed,
-        RunSpeed,
+        MoveSpeed,
+    }
+    public enum Vector3DataReference
+    {
+        InputDirection,
     }
     public enum ActionReference {}
 }
