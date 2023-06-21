@@ -10,9 +10,13 @@ namespace Core
     {
         [Header("Initialize")]
         [SerializeField] private bool health;
+        [SerializeField] private int startingHealth;
         [SerializeField] private bool maxHealth;
+        [SerializeField] private int startingMaxHealth;
+
         [Space]
         [SerializeField] private bool moveSpeed;
+        [SerializeField] private float startingMoveSpeed;
         [SerializeField] private bool moveDirection;
 
         // Entity Data
@@ -34,10 +38,26 @@ namespace Core
             entityActions = new Dictionary<ActionReference, Action>();
 
             // Initialize References
-            if (health) intReferences.Add(IntDataReference.Health, new DataReference<int>());
-            if (maxHealth) intReferences.Add(IntDataReference.MaxHealth, new DataReference<int>());
-            if (moveSpeed) floatReferences.Add(FloatDataReference.MoveSpeed, new DataReference<float>());
-            if (moveDirection) vector3Reference.Add(Vector3DataReference.InputDirection, new DataReference<Vector3>());
+            if (health)
+            {
+                intReferences.Add(IntDataReference.Health, new DataReference<int>());
+                intReferences[IntDataReference.Health].SetData(startingHealth);
+            }
+            if (maxHealth)
+            {
+                intReferences.Add(IntDataReference.MaxHealth, new DataReference<int>());
+                intReferences[IntDataReference.MaxHealth].SetData(startingMaxHealth);
+            }
+            if (moveSpeed)
+            {
+                floatReferences.Add(FloatDataReference.MoveSpeed, new DataReference<float>());
+                floatReferences[FloatDataReference.MoveSpeed].SetData(startingMoveSpeed);
+            }
+            if (moveDirection)
+            {
+                vector3Reference.Add(Vector3DataReference.InputDirection, new DataReference<Vector3>());
+                vector3Reference[Vector3DataReference.InputDirection].SetData(Vector3.zero);
+            }
         }
 
         public DataReference<int> GetIntReference(IntDataReference referenceName)
