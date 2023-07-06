@@ -7,6 +7,7 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] private float amplitude;
     [SerializeField] private float step;
     [SerializeField] private GameObject firstLayer;
+    [SerializeField] private GameObject lowerLayer;
     [SerializeField] private GameObject gameObjectParent;
     [SerializeField] private Vector2 dimension;
     [SerializeField] private int minDepth;
@@ -24,7 +25,7 @@ public class TerrainGenerator : MonoBehaviour
                 int height = (int)(amplitude * Mathf.PerlinNoise(step * (col/dimension.x), step * (row/dimension.y)) - amplitude);
                 for(int depth = height - 1; depth >= minDepth; depth--)
                 {
-                    Instantiate(firstLayer, new Vector3(col+ xOffset, depth, row + yOffset), Quaternion.identity, gameObjectParent.transform);
+                    Instantiate(lowerLayer, new Vector3(col+ xOffset, depth, row + yOffset), Quaternion.identity, gameObjectParent.transform);
                 }
                 Vector3 position = new Vector3(col + xOffset, height, row + yOffset);
                 Instantiate(firstLayer, position, Quaternion.identity, gameObjectParent.transform);
