@@ -18,6 +18,8 @@ namespace Core
         [SerializeField] private bool moveSpeed;
         [SerializeField] private float startingMoveSpeed;
         [SerializeField] private bool moveDirection;
+        [SerializeField] private bool jumpForce;
+        [SerializeField] private float startingJumpForce;
 
         // Entity Data
         private Dictionary<IntDataReference, DataReference<int>> intReferences;
@@ -57,6 +59,11 @@ namespace Core
             {
                 vector3Reference.Add(Vector3DataReference.InputDirection, new DataReference<Vector3>());
                 vector3Reference[Vector3DataReference.InputDirection].SetData(Vector3.zero);
+            }
+            if(jumpForce)
+            {
+                floatReferences.Add(FloatDataReference.JumpForce, new DataReference<float>());
+                floatReferences[FloatDataReference.JumpForce].SetData(startingJumpForce);
             }
         }
 

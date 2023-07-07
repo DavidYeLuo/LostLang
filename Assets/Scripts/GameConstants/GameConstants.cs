@@ -39,6 +39,7 @@ namespace GameConstants
     public enum FloatDataReference
     {
         MoveSpeed,
+        JumpForce,
     }
     public enum Vector3DataReference
     {
