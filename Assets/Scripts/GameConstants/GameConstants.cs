@@ -30,4 +30,20 @@ namespace GameConstants
         Rock,
         Herb,
     }
+    public enum IntDataReference
+    {
+        Health,
+        MaxHealth,
+    }
+    public enum BoolDataReference {}
+    public enum FloatDataReference
+    {
+        MoveSpeed,
+        JumpForce,
+    }
+    public enum Vector3DataReference
+    {
+        InputDirection,
+    }
+    public enum ActionReference {}
 }
