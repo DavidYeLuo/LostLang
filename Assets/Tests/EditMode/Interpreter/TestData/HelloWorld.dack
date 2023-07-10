@@ -1,0 +1,5 @@
+var index = 0
+var end = 10
+while(i < end) {
+  print(i)
+}

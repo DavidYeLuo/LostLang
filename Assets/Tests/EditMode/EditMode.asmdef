@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Temporary",
         "Items",
-        "GameConstants"
+        "GameConstants",
+        "Interpreter"
     ],
     "includePlatforms": [
         "Editor"
