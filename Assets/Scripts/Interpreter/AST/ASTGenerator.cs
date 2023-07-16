@@ -7,15 +7,17 @@ namespace AST
     public class ASTGenerator
     {
         // TODO: Refactor
-        public void DefineDefaultAST()
+        public string DefineDefaultAST()
         {
             string outputDir = "./Assets/Scripts/Interpreter/AST/";
             List<string> typesAST = new List<string>();
             typesAST.Add("Binary   : Expr left, Token op, Expr right");
             typesAST.Add("Grouping : Expr expression");
-            typesAST.Add("Literal  : Object value");
+            typesAST.Add("Literal  : object value");
             typesAST.Add("Unary    : Token op, Expr right");
             DefineAST(outputDir, "Expr", typesAST);
+
+            return outputDir;
         }
         public void DefineAST(string outputDir,
                               string baseName,

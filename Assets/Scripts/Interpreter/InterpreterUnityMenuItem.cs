@@ -9,8 +9,8 @@ namespace Interpreter
         private static void DefineAST()
         {
             ASTGenerator generator = new ASTGenerator();
-            generator.DefineDefaultAST();
-            Debug.Log("Defining AST");
+            string path = generator.DefineDefaultAST();
+            Debug.LogFormat("Generated Definition at: {0}\n", path);
         }
     }
 }
