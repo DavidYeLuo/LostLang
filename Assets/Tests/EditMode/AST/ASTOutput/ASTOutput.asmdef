@@ -1,15 +1,13 @@
 {
-    "name": "Interpreter",
+    "name": "ASTOutput",
     "rootNamespace": "",
-    "references": [
-        "AST"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

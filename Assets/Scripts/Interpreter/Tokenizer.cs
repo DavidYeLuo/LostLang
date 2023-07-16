@@ -12,6 +12,8 @@ namespace Interpreter
         private int current = 0;
         private int line = 1;
 
+        private ErrorHandler errorHandler;
+
         private static Dictionary<string, TokenType> keywords;
         static Tokenizer()
         {
@@ -37,6 +39,12 @@ namespace Interpreter
         public Tokenizer(string source)
         {
             this.source = source;
+            errorHandler = new ErrorHandler();
+        }
+        public Tokenizer(string source, ErrorHandler errorHandler)
+        {
+            this.source = source;
+            this.errorHandler = errorHandler;
         }
         public List<Token> ScanTokens()
         {
@@ -101,6 +109,7 @@ namespace Interpreter
                     else
                     {
                         Console.WriteLine("ERROR ScanToken Fail"); // TODO: Error Handling
+                        errorHandler.Error(line, "Unexpected character");
                     }
                     break;
             }
@@ -164,6 +173,7 @@ namespace Interpreter
             if (IsAtEnd())
             {
                 // ERROR Unterminated String
+                errorHandler.Error(line, "Unterminated String");
             }
 
             // Closing "

@@ -1,0 +1,17 @@
+namespace Interpreter
+{
+    public abstract class ExprTest {}
+
+    public class Binary : ExprTest
+    {
+        public ExprTest left;
+        public Token op;
+        public ExprTest right;
+        public Binary(ExprTest left, Token op, ExprTest right)
+        {
+            this.left = left;
+            this.op = op;
+            this.right = right;
+        }
+    }
+}
