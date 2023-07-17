@@ -43,6 +43,27 @@ public class ASTCreationTest
         Assert.AreEqual(expected, output);
     }
 
+    [Test]
+    public void Test_Printer()
+    {
+        string expected = "(* (- 123) (group 45.67))";
+        string result;
+
+        Expr expression = new Binary(
+                new Unary(
+                    new Token(TokenType.MINUS, "-", null, 1),
+                    new Literal(123)
+                ),
+                new Token(TokenType.STAR, "*", null, 1),
+                new Grouping(
+                    new Literal(45.67)
+                )
+        );
+        result = (new ASTPrinter()).Print(expression);
+
+        Assert.AreEqual(expected, result);
+    }
+
     // Only Enable It For Testing because it produces actual .cs file
     // that will likely make compile errors
     // [Test]
