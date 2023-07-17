@@ -1,17 +1,31 @@
 namespace Interpreter
 {
-    public abstract class ExprTest {}
+    public interface Visitor<R>
+    {
+        public abstract R VisitBinaryExprTest(Binary exprtest);
+    }
+
+    public abstract class ExprTest
+    {
+        public abstract R Accept<R>(Visitor<R> visitor);
+    }
 
     public class Binary : ExprTest
     {
         public ExprTest left;
         public Token op;
         public ExprTest right;
+
         public Binary(ExprTest left, Token op, ExprTest right)
         {
             this.left = left;
             this.op = op;
             this.right = right;
+        }
+
+        public override R Accept<R>(Visitor<R> visitor)
+        {
+            return visitor.VisitBinaryExprTest(this);
         }
     }
 }

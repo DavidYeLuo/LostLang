@@ -26,36 +26,67 @@ namespace AST
             string path = string.Format("{0}/{1}.cs", outputDir, baseName);
             StringBuilder sb = new StringBuilder();
             sb.Append("namespace Interpreter\n{\n");
-            sb.AppendFormat("    public abstract class {0} {1}\n", baseName, "{}");
+            int startIndent = 1;
+            DefineVisitorClass(sb, startIndent, baseName, types);
+            sb.AppendLine();
+            DefineBaseAbstractClass(sb, startIndent, baseName, types);
             foreach (string type in types)
             {
                 sb.AppendFormat("\n");
                 string className = type.Split(":")[0].Trim();
                 string fields = type.Split(":")[1].Trim();
-                DefineType(sb, baseName, className, fields);
+
+                sb.AppendFormat("{0}public class {1} : {2}\n{0}{3}\n", Tab(startIndent), className, baseName, "{");
+                DefineType(sb, baseName, className, fields, startIndent + 1);
+                sb.AppendLine();
+                ImplementVisitor(sb, className, baseName, startIndent + 1);
+                sb.AppendFormat("{0}{1}\n", Tab(startIndent), "}");
             };
             sb.Append("}\n");
             WriteToFile(path, sb.ToString());
         }
 
-        private void DefineType(StringBuilder sb, string baseName, string className, string fieldList)
+        private void DefineBaseAbstractClass(StringBuilder sb, int startIndent, string baseName, List<string> types)
         {
-            sb.AppendFormat("{0}public class {1} : {2}\n{0}{3}\n", Tab(1), className, baseName, "{");
+            sb.AppendFormat("{0}public abstract class {1}\n{0}{2}\n", Tab(startIndent), baseName, "{");
+            sb.AppendFormat("{0}public abstract R Accept<R>(Visitor<R> visitor);\n", Tab(startIndent + 1));
+            sb.AppendFormat("{0}{1}\n", Tab(startIndent), "}");
+        }
 
+        private void DefineVisitorClass(StringBuilder sb, int startIndent, string baseName, List<string> types)
+        {
+            sb.AppendFormat("{0}public interface Visitor<R>\n{0}{1}\n", Tab(startIndent), "{");
+            foreach (string type in types)
+            {
+                string typeName = type.Split(":")[0].Trim();
+                sb.AppendFormat("{0}public abstract R Visit{1}{2}({1} {3});\n", Tab(startIndent + 1), typeName, baseName, baseName.ToLower());
+            }
+            sb.AppendFormat("{0}{1}\n", Tab(startIndent), "}");
+        }
+
+        private void DefineType(StringBuilder sb, string baseName, string className, string fieldList, int startIndent)
+        {
             string[] fields = fieldList.Split(", ");
             foreach (string field in fields)
             {
-                sb.AppendFormat("{0}public {1};\n", Tab(2), field);
+                sb.AppendFormat("{0}public {1};\n", Tab(startIndent), field);
             }
 
-            sb.AppendFormat("{0}public {1}({2})\n{0}{3}\n", Tab(2), className, fieldList, "{");
+            sb.AppendLine();
+            sb.AppendFormat("{0}public {1}({2})\n{0}{3}\n", Tab(startIndent), className, fieldList, "{");
             foreach (string field in fields)
             {
                 string name = field.Split(" ")[1];
-                sb.AppendFormat("{0}this.{1} = {1};\n", Tab(3), name);
+                sb.AppendFormat("{0}this.{1} = {1};\n", Tab(startIndent + 1), name);
             }
-            sb.AppendFormat("{0}{1}\n", Tab(2), "}");
-            sb.AppendFormat("{0}{1}\n", Tab(1), "}");
+            sb.AppendFormat("{0}{1}\n", Tab(startIndent), "}");
+        }
+
+        private void ImplementVisitor(StringBuilder sb, string className, string baseName, int startIndent)
+        {
+            sb.AppendFormat("{0}public override R Accept<R>(Visitor<R> visitor)\n{0}{1}\n", Tab(startIndent), "{");
+            sb.AppendFormat("{0}return visitor.Visit{1}{2}(this);\n", Tab(startIndent + 1), className, baseName);
+            sb.AppendFormat("{0}{1}\n", Tab(startIndent), "}");
         }
 
         private string Tab(int num)
