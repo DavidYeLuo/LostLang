@@ -1,5 +1,6 @@
 name: Free Disk Space (Ubuntu)
-on: workflow_dispatch: {}
+on:
+  workflow_dispatch: {}
   
 jobs:
   free-disk-space:
